@@ -132,7 +132,7 @@ Prop                | Type     | Optional | Default      | Description
 `caseSensitiveSearch`| bool     | Yes      | false         | Sensitive mode on search
 `onSearchFilterer`  | function      | Yes      |          |  Custom search filterer function. (searchText, data) => filteredData
 `onChange`          | function | Yes      | () => {}     | callback function, when the users has selected an option
-`onChangeSearch`    | function | Yes      | () => {}     | Callback function, when the users has typed in search box 
+`onChangeSearch`    | function | Yes      | (searchData) => {}     | Callback function, when the users has typed in search box 
 `onModalOpen`       | function | Yes      | () => {}     | callback function, when modal is opening
 `onModalClose`      | function | Yes      | (item) => {} | callback function, when modal is closing. Returns the selected item.
 `keyExtractor`      | function | Yes      | (data) => data.key   | extract the key from the data item
