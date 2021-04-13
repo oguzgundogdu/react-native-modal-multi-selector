@@ -15,13 +15,13 @@
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
-    "react-native-web": "~0.11.7",
-    "react-native-modal-selector": "*"
+    "react-native-modal-selector": "*",
+    "react-native-web": "~0.11.7"
   },
   "devDependencies": {
-    "babel-preset-expo": "~8.0.0",
     "@babel/core": "^7.0.0",
     "@deboxsoft/cpx": "^1.5.0",
+    "babel-preset-expo": "~8.0.0",
     "nodemon": "^1.18.10"
   },
   "private": true
