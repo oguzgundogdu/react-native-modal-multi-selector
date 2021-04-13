@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React from 'react';
 import { ViewStyle, TextStyle, FlatListProps } from 'react-native';
 
@@ -7,7 +8,7 @@ export interface IOption {
   section?: boolean;
   accessibilityLabel?: string;
   component?: React.ReactNode;
-  [key:string]: any;
+  [key: string]: any;
 }
 
 type AnimationType = 'none' | 'slide' | 'fade';
@@ -22,20 +23,50 @@ interface IModalSelectorProps<TOption> {
    * Default is `[]`
    */
   data: TOption[],
-
-      /**
-   * List to be render inside modal can be Scrollview or Flatlist
-   * 
-   * Default is `'SCROLLVIEW'`
+  /**
+   * Control the search box visibility
+   *
+   * Default is `true`
    */
-  listType?: ListType; 
-  
+  search: boolean,
+  /**
+   * Hide the caption of related matched items
+   *
+   * Default is `false`
+   */
+  hideSectionOnSearch: boolean,
+  /**
+   * Sensitive mode on search
+   *
+   * Default is `false`
+   */
+  caseSensitiveSearch: boolean,
+  /**
+   * Custom search filterer function
+   *
+   * Default is uses its own function 
+   */
+  onSearchFilterer: (searchText: string, data: TOption[]) => TOption[],
+
+  /**
+  * List to be render inside modal can be Scrollview or Flatlist
+  *
+  * Default is `'SCROLLVIEW'`
+  */
+  listType?: ListType;
+
   /**
    * Callback function, when the users has selected an option
    *
    * Default is `() => {}`
    */
-  onChange?: (option: TOption) => void; 
+  onChange?: (option: TOption) => void;
+  /**
+   * Callback function, when the users has typed in search box 
+   *
+   * Default is `() => {}`
+   */
+  onChangeSearch: (searchText: string) => void,
 
   /**
    * Callback function, when modal is opening
@@ -56,21 +87,21 @@ interface IModalSelectorProps<TOption> {
    *
    * Default is `(data) => data.key` 
    */
-  keyExtractor?: (option: TOption) => React.Key; 
+  keyExtractor?: (option: TOption) => React.Key;
 
   /**
    * Extract the label from the data item
    *
    * Default is `(data) => data.label`
    */
-  labelExtractor?: (option: TOption) => string; 
+  labelExtractor?: (option: TOption) => string;
 
   /**
    * Extract the component from the data item
    *
    * Default is `(data) => data.component` 
    */
-  componentExtractor?: (option: TOption) => React.ReactNode; 
+  componentExtractor?: (option: TOption) => React.ReactNode;
 
   /**
    * Control open/close state of modal
@@ -226,6 +257,20 @@ interface IModalSelectorProps<TOption> {
    */
   initValueTextStyle?: TextStyle;
 
+
+  /**
+   * Style definitions for the search view element
+   * 
+   * Default is `{ borderWidth: 1, borderRadius: 5, borderColor: 'rgba(0,0,0,0.2)', paddingHorizontal: PADDING, marginHorizontal: PADDING, }`
+   */
+  searchStyle?: ViewStyle;
+  /**
+   * Style definitions for the search text element
+   * 
+   * Default is `{}`
+   */
+  searchTextStyle?: TextStyle;
+
   /**
    * Disables opening of the modal
    * 
@@ -350,4 +395,4 @@ interface IModalSelectorProps<TOption> {
   selectedKey?: React.Key;
 }
 
-export default class ModalSelector<TOption = IOption> extends React.Component<IModalSelectorProps<TOption> & FlatListProps<any>, any> {}
+export default class ModalSelector<TOption = IOption> extends React.Component<IModalSelectorProps<TOption> & FlatListProps<any>, any> { }

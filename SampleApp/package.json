@@ -3,7 +3,7 @@
   "scripts": {
     "start": "expo start",
     "postinstall": "npm run cp",
-    "cp": "cpx \"../*.js\" node_modules/react-native-modal-selector/ -u",
+    "cp": "cpx \"../*.js\" node_modules/react-native-modal-selector-search/ -u",
     "nodemon": "nodemon nodemon.json",
     "android": "expo start --android",
     "ios": "expo start --ios",
@@ -15,7 +15,7 @@
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
-    "react-native-modal-selector": "*",
+    "react-native-modal-selector-search": "*",
     "react-native-web": "~0.11.7"
   },
   "devDependencies": {

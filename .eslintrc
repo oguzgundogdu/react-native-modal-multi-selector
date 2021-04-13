@@ -61,7 +61,6 @@
     "no-useless-return": 2,
     "block-spacing": 2,
     "no-lonely-if": 2,
-    "no-trailing-spaces": 2,
     "one-var": [
       "error",
       "never"

@@ -28,7 +28,6 @@ const propTypes = {
     onChangeSearch: PropTypes.func,
     onChange: PropTypes.func,
     onModalOpen: PropTypes.func,
-    onModalClose: PropTypes.func,
     keyExtractor: PropTypes.func,
     labelExtractor: PropTypes.func,
     componentExtractor: PropTypes.func,

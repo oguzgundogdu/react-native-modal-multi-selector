@@ -1,32 +1,21 @@
-# react-native-modal-selector [![npm version](https://badge.fury.io/js/react-native-modal-selector.svg)](https://badge.fury.io/js/react-native-modal-selector)
+# react-native-modal-selector-search [![npm version](https://badge.fury.io/js/react-native-modal-selector-search.svg)](https://badge.fury.io/js/react-native-modal-selector-search)
 
 A cross-platform (iOS / Android), selector/picker component for React Native that is highly customizable and supports sections.
 
-This project is the official continuation of the abandoned `react-native-modal-picker` repo. Contributors are welcome to [request a promotion to collaborator status](https://github.com/peacechen/react-native-modal-selector/issues/1).
+######Search functionality has been added to this fork repository
+
+This project was forked from [react-native-modal-selector](https://github.com/peacechen/react-native-modal-selector)
 
 ## Demo
 
-<img src="https://github.com/peacechen/react-native-modal-selector/blob/master/docs/demo.gif" />
+<img src="docs/demo.gif" />
 
 ## Install
 
 ```sh
-npm i react-native-modal-selector --save
+npm i react-native-modal-selector-search --save
 ```
-
-
-## Live support
-
-### Get help
-
-If you have an urgent problem, hire a mentor for a 1:1 live session on Git-Start:
-[![Get 1:1 live support for your issue.](https://git-start.com/assets/git-start-mentee-banner-medium.svg?sanitize=true)](https://git-start.com/help-request/create/peacechen%2Freact-native-modal-selector)
-
-### Provide help
-
-Help others in paid 1:1 live sessions to get started.
-[![Give paid 1:1 live support.](https://git-start.com/assets/git-start-mentor-banner-medium.svg?sanitize=true)](https://git-start.com/help-request/overview/peacechen%2Freact-native-modal-selector)
-
+ 
 
 ## Usage
 
@@ -36,7 +25,7 @@ See `SampleApp` for an example how to use this component.
 
 ```jsx
 
-import ModalSelector from 'react-native-modal-selector'
+import ModalSelector from 'react-native-modal-selector-search'
 
 class SampleApp extends Component {
 
@@ -117,7 +106,7 @@ Optionally provide a `component` key which overrides the default label text. Opt
 }]
 ```
 
-<img src="https://user-images.githubusercontent.com/6295083/51210593-d3fbae00-18d8-11e9-8f51-d1ca4f9f8267.png" />
+<img src="docs/image-1.png" />
 
 If your data has a specific format, you can define extractors of data, example:
 ```javascript
@@ -138,7 +127,12 @@ return (
 Prop                | Type     | Optional | Default      | Description
 ------------------- | -------- | -------- | ------------ | -----------
 `data`              | array    | No       | []           | array of objects with a unique `key` and `label` to select in the modal. Optional `component` overrides label text. Optional unique `testID` for each item.
+`search`            | bool     | Yes      | true         | Control the search box visibility
+`hideSectionOnSearch`| bool     | Yes      | false         | Hide the caption of related matched items
+`caseSensitiveSearch`| bool     | Yes      | false         | Sensitive mode on search
+`onSearchFilterer`  | function      | Yes      |          |  Custom search filterer function. (searchText, data) => filteredData
 `onChange`          | function | Yes      | () => {}     | callback function, when the users has selected an option
+`onChangeSearch`    | function | Yes      | () => {}     | Callback function, when the users has typed in search box 
 `onModalOpen`       | function | Yes      | () => {}     | callback function, when modal is opening
 `onModalClose`      | function | Yes      | (item) => {} | callback function, when modal is closing. Returns the selected item.
 `keyExtractor`      | function | Yes      | (data) => data.key   | extract the key from the data item
@@ -170,6 +164,8 @@ Prop                | Type     | Optional | Default      | Description
 `cancelTextStyle`   | object   | Yes      | {}           | style definitions for the cancel text element
 `initValueTextStyle`| object   | Yes      | {}           | style definitions for the initValue text element
 `cancelContainerStyle`| object | Yes      | {}           | style definitions for the cancel container
+`searchStyle`       | object   | Yes      | {}           | Style definitions for the search view element
+`searchTextStyle`   | object | Yes      | {}           | Style definitions for the search text element
 `backdropPressToClose`| bool   | Yes  | false        | `true` makes the modal close when the overlay is pressed
 `passThruProps`| object   | Yes  | {}        | props to pass through to the container View and each option TouchableOpacity (e.g. testID for testing)
 `selectTextPassThruProps`| object   | Yes  | {}        | props to pass through to the select text component
