@@ -10,7 +10,7 @@ import {
     Image
 } from 'react-native';
 
-import ModalSelector from 'react-native-modal-selector-search'
+import ModalSelector from 'react-native-modal-selector-searchable'
 import { countryList } from "./assets/CountryList";
 
 class SampleApp extends Component {

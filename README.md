@@ -1,4 +1,4 @@
-# react-native-modal-selector-search [![npm version](https://badge.fury.io/js/react-native-modal-selector-search.svg)](https://badge.fury.io/js/react-native-modal-selector-search)
+# react-native-modal-selector-searchable [![npm version](https://badge.fury.io/js/react-native-modal-selector-searchable.svg)](https://badge.fury.io/js/react-native-modal-selector-searchable)
 
 A cross-platform (iOS / Android), selector/picker component for React Native that is highly customizable and supports sections.
 
@@ -13,7 +13,7 @@ This project was forked from [react-native-modal-selector](https://github.com/pe
 ## Install
 
 ```sh
-npm i react-native-modal-selector-search --save
+npm i react-native-modal-selector-searchable --save
 ```
  
 
@@ -25,7 +25,7 @@ See `SampleApp` for an example how to use this component.
 
 ```jsx
 
-import ModalSelector from 'react-native-modal-selector-search'
+import ModalSelector from 'react-native-modal-selector-searchable'
 
 class SampleApp extends Component {
 
