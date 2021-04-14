@@ -1,6 +1,6 @@
 'use strict';
 
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 
 const PADDING = 8;
 const BORDER_RADIUS = 5;
@@ -86,6 +86,7 @@ export default StyleSheet.create({
         borderRadius: 5,
         borderColor: 'rgba(0,0,0,0.2)',
         paddingHorizontal: PADDING,
+        paddingVertical: Platform.OS === 'ios' ? PADDING : 0,
         marginHorizontal: PADDING,
     },
 });
