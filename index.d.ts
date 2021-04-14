@@ -28,25 +28,25 @@ interface IModalSelectorProps<TOption> {
    *
    * Default is `true`
    */
-  search: boolean,
+  search?: boolean,
   /**
    * Hide the caption of related matched items
    *
    * Default is `false`
    */
-  hideSectionOnSearch: boolean,
+  hideSectionOnSearch?: boolean,
   /**
    * Sensitive mode on search
    *
    * Default is `false`
    */
-  caseSensitiveSearch: boolean,
+  caseSensitiveSearch?: boolean,
   /**
    * Custom search filterer function
    *
    * Default is uses its own function 
    */
-  onSearchFilterer: (searchText: string, data: TOption[]) => TOption[],
+  onSearchFilterer?: (searchText: string, data: TOption[]) => TOption[],
 
   /**
   * List to be render inside modal can be Scrollview or Flatlist

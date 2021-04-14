@@ -130,7 +130,7 @@ Prop                | Type     | Optional | Default      | Description
 `search`            | bool     | Yes      | true         | Control the search box visibility
 `hideSectionOnSearch`| bool     | Yes      | false         | Hide the caption of related matched items
 `caseSensitiveSearch`| bool     | Yes      | false         | Sensitive mode on search
-`onSearchFilterer`  | function      | Yes      |          |  Custom search filterer function. (searchText, data) => filteredData
+`onSearchFilterer`  | function      | Yes      |(searchText, data) => filteredData|  Custom search filterer function.
 `onChange`          | function | Yes      | () => {}     | callback function, when the users has selected an option
 `onChangeSearch`    | function | Yes      | (searchData) => {}     | Callback function, when the users has typed in search box 
 `onModalOpen`       | function | Yes      | () => {}     | callback function, when modal is opening
