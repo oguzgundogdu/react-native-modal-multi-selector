@@ -95,6 +95,13 @@ interface IModalSelectorProps<TOption> {
   onModalClose?: () => void;
 
   /**
+   * Callback function, when clicking the cancel button
+   *
+   * Default is `() => {}`
+   */
+  onCancel?: () => void;
+
+  /**
    * Extract the key from the data item
    *
    * Default is `(data) => data.key` 
@@ -142,6 +149,13 @@ interface IModalSelectorProps<TOption> {
    * Default is `'cancel'`
    */
   cancelText?: string;
+
+  /**
+   * Text of the search placeholder
+   *
+   * Default is `'search'`
+   */
+  searchText?: string;
 
   /**
    * Type of animation to be used to show the modal.

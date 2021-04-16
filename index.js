@@ -29,6 +29,7 @@ const propTypes = {
     onChange: PropTypes.func,
     onModalOpen: PropTypes.func,
     onModalClose: PropTypes.func,
+    onCancel: PropTypes.func,
     keyExtractor: PropTypes.func,
     labelExtractor: PropTypes.func,
     componentExtractor: PropTypes.func,
@@ -57,6 +58,7 @@ const propTypes = {
     searchStyle: ViewPropTypes.style,
     searchTextStyle: Text.propTypes.style,
     cancelText: PropTypes.string,
+    searchText: PropTypes.string,
     disabled: PropTypes.bool,
     supportedOrientations: PropTypes.arrayOf(
         PropTypes.oneOf([
@@ -99,6 +101,7 @@ const defaultProps = {
     onChange: () => { },
     onModalOpen: () => { },
     onModalClose: () => { },
+    onCancel: () => { },
     searchFilterer: (item) => item.component,
     keyExtractor: (item) => item.key,
     labelExtractor: (item) => item.label,
@@ -126,6 +129,7 @@ const defaultProps = {
     overlayStyle: {},
     initValueTextStyle: {},
     cancelText: 'cancel',
+    searchText: 'search',
     disabled: false,
     supportedOrientations: ['portrait', 'landscape'],
     keyboardShouldPersistTaps: 'always',
@@ -164,14 +168,13 @@ export default class ModalSelector extends React.Component {
         this.state = {
             modalVisible: props.visible,
             selected: selectedItem.label,
-            cancelText: props.cancelText,
             changedItem: selectedItem.key,
             searchData: null,
         };
         this.initialModalHeight = null;
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
         let newState = {};
         let doUpdate = false;
         if (prevProps.initValue !== this.props.initValue) {
@@ -218,6 +221,10 @@ export default class ModalSelector extends React.Component {
         this.setState({
             modalVisible: false,
         });
+    }
+    cancel = () => {
+        this.props.onCancel();
+        this.close();
     }
 
     open = (params = {}) => {
@@ -276,7 +283,7 @@ export default class ModalSelector extends React.Component {
             </TouchableOpacity>);
     }
 
-    renderFlatlistOption = (filteredData) => ({ item, index, separators }) => {
+    renderFlatlistOption = (filteredData) => ({ item, index }) => {
         if (item.section) {
             return this.renderSection(item);
         }
@@ -344,6 +351,7 @@ export default class ModalSelector extends React.Component {
             cancelStyle,
             cancelTextStyle,
             cancelText,
+            searchText,
             search,
             searchStyle,
             searchTextStyle,
@@ -393,7 +401,7 @@ export default class ModalSelector extends React.Component {
                     >
                         {search &&
                             <View style={[styles.searchStyle, searchStyle]}>
-                                <TextInput style={searchTextStyle} placeholder="Search" onChangeText={this.onChangeSearch} />
+                                <TextInput style={searchTextStyle} placeholder={searchText} onChangeText={this.onChangeSearch} />
                             </View>
                         }
 
@@ -420,7 +428,7 @@ export default class ModalSelector extends React.Component {
                         }
                     </View>
                     <View style={[styles.cancelContainer, cancelContainerStyle]}>
-                        <TouchableOpacity onPress={this.close} activeOpacity={touchableActiveOpacity} accessible={cancelButtonAccessible} accessibilityLabel={cancelButtonAccessibilityLabel}>
+                        <TouchableOpacity onPress={this.cancel} activeOpacity={touchableActiveOpacity} accessible={cancelButtonAccessible} accessibilityLabel={cancelButtonAccessibilityLabel}>
                             <View style={[styles.cancelStyle, cancelStyle]}>
                                 <Text style={[styles.cancelTextStyle, cancelTextStyle]} {...this.props.cancelTextPassThruProps}>{cancelText}</Text>
                             </View>
