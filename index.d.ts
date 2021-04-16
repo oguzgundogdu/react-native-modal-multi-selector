@@ -42,6 +42,18 @@ interface IModalSelectorProps<TOption> {
    */
   caseSensitiveSearch?: boolean,
   /**
+   * Keep the modal size to the maximum regardless of the listed items
+   *
+   * Default is `false`
+   */
+  fullHeight?: boolean,
+  /**
+   * Preserve initial modal size on search
+   *
+   * Default is `false`
+   */
+  frozenSearch?: boolean,
+  /**
    * Custom search filterer function
    *
    * Default is uses its own function 
@@ -66,7 +78,7 @@ interface IModalSelectorProps<TOption> {
    *
    * Default is `() => {}`
    */
-  onChangeSearch: (searchText: string) => void,
+  onChangeSearch?: (searchText: string) => void,
 
   /**
    * Callback function, when modal is opening

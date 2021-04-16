@@ -28,6 +28,7 @@ const propTypes = {
     onChangeSearch: PropTypes.func,
     onChange: PropTypes.func,
     onModalOpen: PropTypes.func,
+    onModalClose: PropTypes.func,
     keyExtractor: PropTypes.func,
     labelExtractor: PropTypes.func,
     componentExtractor: PropTypes.func,
@@ -88,6 +89,8 @@ const propTypes = {
     hideSectionOnSearch: PropTypes.bool,
     caseSensitiveSearch: PropTypes.bool,
     search: PropTypes.bool,
+    fullHeight: PropTypes.bool,
+    frozenSearch: PropTypes.bool,
 };
 
 
@@ -149,6 +152,8 @@ const defaultProps = {
     hideSectionOnSearch: false,
     caseSensitiveSearch: false,
     search: true,
+    fullHeight: false,
+    frozenSearch: false,
 };
 
 export default class ModalSelector extends React.Component {
@@ -163,6 +168,7 @@ export default class ModalSelector extends React.Component {
             changedItem: selectedItem.key,
             searchData: null,
         };
+        this.initialModalHeight = null;
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -207,6 +213,7 @@ export default class ModalSelector extends React.Component {
     }
 
     close = (item) => {
+        this.initialModalHeight = null;
         this.props.onModalClose(item);
         this.setState({
             modalVisible: false,
@@ -340,6 +347,8 @@ export default class ModalSelector extends React.Component {
             search,
             searchStyle,
             searchTextStyle,
+            fullHeight,
+            frozenSearch,
         } = this.props;
 
         const filteredData = this.onSearchFilterer(data);
@@ -373,7 +382,15 @@ export default class ModalSelector extends React.Component {
         return (
             <Overlay {...overlayProps}>
                 <View style={[styles.overlayStyle, overlayStyle]}>
-                    <View style={[styles.optionContainer, optionContainerStyle]}>
+                    <View
+                        style={[
+                            styles.optionContainer,
+                            frozenSearch && { height: this.initialModalHeight },
+                            fullHeight && { height: "100%" },
+                            optionContainerStyle,
+                        ]}
+                        onLayout={(event) => this.initialModalHeight = this.initialModalHeight || event.nativeEvent.layout.height}
+                    >
                         {search &&
                             <View style={[styles.searchStyle, searchStyle]}>
                                 <TextInput style={searchTextStyle} placeholder="Search" onChangeText={this.onChangeSearch} />
