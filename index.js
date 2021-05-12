@@ -27,6 +27,7 @@ const propTypes = {
     onSearchFilterer: PropTypes.func,
     onChangeSearch: PropTypes.func,
     onChange: PropTypes.func,
+    onPress: PropTypes.func,
     onModalOpen: PropTypes.func,
     onModalClose: PropTypes.func,
     onCancel: PropTypes.func,
@@ -99,6 +100,7 @@ const propTypes = {
 const defaultProps = {
     data: [],
     onChange: () => { },
+    onPress: () => { },
     onModalOpen: () => { },
     onModalClose: () => { },
     onCancel: () => { },
@@ -228,6 +230,8 @@ export default class ModalSelector extends React.Component {
     }
 
     open = (params = {}) => {
+        this.props.onPress(this.validateSelectedKey(this.props.selectedKey));
+
         if (!params.longPress && !this.props.enableShortPress) {
             return;
         }
