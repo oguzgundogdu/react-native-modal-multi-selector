@@ -91,6 +91,7 @@ const propTypes = {
     search: PropTypes.bool,
     fullHeight: PropTypes.bool,
     frozenSearch: PropTypes.bool,
+    modalTestId: PropTypes.any,
 };
 
 
