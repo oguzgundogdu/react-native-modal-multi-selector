@@ -10,7 +10,7 @@ import {
     Image
 } from 'react-native';
 
-import ModalSelector from 'react-native-modal-selector-searchable'
+import ModalSelector from 'react-native-modal-multi-selector'
 import { countryList } from "./assets/CountryList";
 
 class SampleApp extends Component {
@@ -46,6 +46,15 @@ class SampleApp extends Component {
         return (
             <View style={{ flex: 1, justifyContent: 'space-around', padding: 50 }}>
 
+                { /* Multi mode: a clickable button will re rendered */ }
+                <ModalSelector
+                    data={data}
+                    selectStyle={{borderColor: "black"}}
+                    selectTextStyle={{color: "blue"}}
+                    multi={true}
+                    onChange={item => { console.log(item) }}
+                />
+
                 { /* Default mode: a clickable button will re rendered */ }
                 <ModalSelector
                     data={data}
@@ -55,6 +64,8 @@ class SampleApp extends Component {
                     selectTextStyle={{color: "blue"}}
                     onChange={option => { alert(`${option.label} (${option.key}) nom nom nom`) }}
                 />
+
+               
 
                 { /*
                     Wrapper mode: just wrap your existing component with ModalSelector.
@@ -115,6 +126,8 @@ class SampleApp extends Component {
               selectTextStyle={{color: "blue"}}
               onChange={option => { this.setState({ textInputValue: option.name }) }}
               componentExtractor={(option) => <ListItem data={option} />}/>
+
+
                  
             </View>
         );

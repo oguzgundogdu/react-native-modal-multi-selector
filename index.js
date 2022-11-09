@@ -92,6 +92,7 @@ const propTypes = {
     fullHeight: PropTypes.bool,
     frozenSearch: PropTypes.bool,
     modalTestId: PropTypes.any,
+    multi: PropTypes.bool
 };
 
 
@@ -158,26 +159,31 @@ const defaultProps = {
     search: true,
     fullHeight: false,
     frozenSearch: false,
+    multi: false,
+    text: (count) => `${count} item(s) selected`
 };
 
 export default class ModalSelector extends React.Component {
 
     constructor(props) {
         super(props);
-        let selectedItem = this.validateSelectedKey(props.selectedKey);
+
+        let selectedItem = props.multi === true ? this.validateSelectedKeys(props.selectedKey) : this.validateSelectedKey(props.selectedKey);
+
         this.state = {
             modalVisible: props.visible,
-            selected: selectedItem.label,
-            changedItem: selectedItem.key,
+            selected: props.multi === true ? selectedItem?.map(item => item.label) : selectedItem?.label,
+            changedItem: props.multi === true ? selectedItem?.map(item => item.key): selectedItem?.key,
             searchData: null,
         };
         this.initialModalHeight = null;
+        defaultProps.closeOnChange = !props.multi;
     }
 
     componentDidUpdate(prevProps) {
         let newState = {};
         let doUpdate = false;
-        if (prevProps.initValue !== this.props.initValue) {
+        if (!this.props.multi && prevProps.initValue !== this.props.initValue) {
             newState.selected = this.props.initValue;
             doUpdate = true;
         }
@@ -185,7 +191,7 @@ export default class ModalSelector extends React.Component {
             newState.modalVisible = this.props.visible;
             doUpdate = true;
         }
-        if (prevProps.selectedKey !== this.props.selectedKey || prevProps.data !== this.props.data) {
+        if (!this.props.multi && (prevProps.selectedKey !== this.props.selectedKey || prevProps.data !== this.props.data)) {
             let selectedItem = this.validateSelectedKey(this.props.selectedKey);
             newState.selected = selectedItem.label;
             newState.changedItem = selectedItem.key;
@@ -203,12 +209,35 @@ export default class ModalSelector extends React.Component {
         return { label: selectedLabel, key: selectedKey }
     }
 
+    validateSelectedKeys = (keys) => {
+        if(!keys || !Array.isArray(keys) || keys.length === 0) return undefined;
+        return keys.map(key => this.validateSelectedKey(key));
+    }
+
     onChange = (item) => {
         this.props.onChange(item);
         this.setState({ selected: this.props.labelExtractor(item), changedItem: item }, () => {
             if (this.props.closeOnChange)
                 this.close(item);
         });
+    }
+
+    onChangeMulti = (item, itemChecked) => {
+        let changedItemInternal = itemChecked === false ? (this.state.changedItem || []).concat(item) : (this.state.changedItem || []).filter(c => this.props.keyExtractor(c) != this.props.keyExtractor(item));
+        let selectedInternal = itemChecked === false ? (this.state.selected || []).concat(this.props.labelExtractor(item)) : (this.state.selected || []).filter(s => s != this.props.labelExtractor(item));
+
+        this.setState(prevState =>{
+            return { 
+                ...prevState,
+                selected: selectedInternal, 
+                changedItem: changedItemInternal
+            };
+        });
+
+        this.props.onChange(changedItemInternal);
+
+        if (this.props.closeOnChange)
+            this.close(changedItemInternal);
     }
 
     getSelectedItem() {
@@ -260,7 +289,7 @@ export default class ModalSelector extends React.Component {
     renderOption = (option, isLastItem, isFirstItem) => {
         const optionComponent = this.props.componentExtractor(option);
         const optionLabel = this.props.labelExtractor(option);
-        const isSelectedItem = optionLabel === this.state.selected;
+        const isSelectedItem = this.props.multi === false ? optionLabel === this.state.selected : this.state.selected !== undefined && this.state.selected.includes(optionLabel);
 
         let component = optionComponent || (
             <Text style={[styles.optionTextStyle, this.props.optionTextStyle, isSelectedItem && this.props.selectedItemTextStyle]} {...this.props.optionTextPassThruProps}>
@@ -272,7 +301,7 @@ export default class ModalSelector extends React.Component {
             <TouchableOpacity
                 key={this.props.keyExtractor(option)}
                 testID={option.testID || this.props.optionsTestIDPrefix + '-' + optionLabel}
-                onPress={() => this.onChange(option)}
+                onPress={() => this.props.multi === false ? this.onChange(option) : this.onChangeMulti(option, isSelectedItem)}
                 activeOpacity={this.props.touchableActiveOpacity}
                 accessible={this.props.listItemAccessible}
                 accessibilityLabel={option.accessibilityLabel || undefined}
@@ -360,6 +389,7 @@ export default class ModalSelector extends React.Component {
             searchTextStyle,
             fullHeight,
             frozenSearch,
+            multi
         } = this.props;
 
         const filteredData = this.onSearchFilterer(data);
@@ -447,11 +477,11 @@ export default class ModalSelector extends React.Component {
         if (this.props.children) {
             return this.props.children;
         }
-        let initSelectStyle = this.props.initValue === this.state.selected ?
+        let initSelectStyle = !this.props.multi && this.props.initValue === this.state.selected ?
             [styles.initValueTextStyle, this.props.initValueTextStyle] : [styles.selectTextStyle, this.props.selectTextStyle];
         return (
             <View style={[styles.selectStyle, this.props.selectStyle]}>
-                <Text style={initSelectStyle} {...this.props.selectTextPassThruProps}>{this.state.selected}</Text>
+                <Text style={initSelectStyle} {...this.props.selectTextPassThruProps}>{this.props.multi === true ? this.props.text(this.state.selected?.length || 0) : this.state.selected}</Text>
             </View>
         );
     }

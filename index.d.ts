@@ -132,7 +132,9 @@ interface IModalSelectorProps<TOption> {
   /**
    * Control if modal closes on select
    *
-   * Default is `true`
+   * In single mode default is `true`
+   * 
+   * In multi mode default is `false`
    */
   closeOnChange?: boolean;
 
@@ -140,6 +142,8 @@ interface IModalSelectorProps<TOption> {
    * Text that is initially shown on the button
    *
    * Default is `'Select me!'`
+   * 
+   * Note: This property is valid for only in single mode
    */
   initValue?: string;
 
@@ -280,6 +284,8 @@ interface IModalSelectorProps<TOption> {
    * Style definitions for the initValue text element
    * 
    * Default is `{}`
+   * 
+   * Note: This property is valid for only in single mode
    */
   initValueTextStyle?: TextStyle;
 
@@ -419,6 +425,21 @@ interface IModalSelectorProps<TOption> {
    * Default is `''`
    */
   selectedKey?: React.Key;
+
+
+  /**
+   * Enables multiple selection
+   * 
+   * Default is `false`
+   */
+   multi?: boolean;
+
+   /**
+   * Dropdown text in multi mode
+   * 
+   * Default is `${count} item(s) selected`
+   */
+    text?: (count: string) => React.ReactNode;
 }
 
 export default class ModalSelector<TOption = IOption> extends React.Component<IModalSelectorProps<TOption> & FlatListProps<any>, any> { }

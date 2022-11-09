@@ -1,10 +1,10 @@
-# react-native-modal-selector-searchable [![npm version](https://badge.fury.io/js/react-native-modal-selector-searchable.svg)](https://badge.fury.io/js/react-native-modal-selector-searchable)
+# react-native-modal-multi-selector [![npm version](https://badge.fury.io/js/react-native-modal-multi-selector.svg)](https://badge.fury.io/js/react-native-modal-multi-selector)
 
-A cross-platform (iOS / Android), selector/picker component for React Native that is highly customizable and supports sections.
+A cross-platform (iOS / Android), selector/picker component for React Native that is filterable and multi supported, highly customizable and supports sections.
 
-##### Search functionality has been added to this fork repository
+##### Multi selection functionality has been added to this fork repository
 
-This project was forked from [react-native-modal-selector](https://github.com/peacechen/react-native-modal-selector)
+This project was forked from [react-native-modal-selector-searchable](https://github.com/hepter/react-native-modal-selector-searchable)
 
 ## Demo
 
@@ -13,7 +13,7 @@ This project was forked from [react-native-modal-selector](https://github.com/pe
 ## Install
 
 ```sh
-npm i react-native-modal-selector-searchable --save
+npm i react-native-modal-multi-selector --save
 ```
  
 
@@ -25,7 +25,7 @@ See `SampleApp` for an example how to use this component.
 
 ```jsx
 
-import ModalSelector from 'react-native-modal-selector-searchable'
+import ModalSelector from 'react-native-modal-multi-selector'
 
 class SampleApp extends Component {
 
@@ -57,6 +57,15 @@ class SampleApp extends Component {
                     data={data}
                     initValue="Select something yummy!"
                     onChange={(option)=>{ alert(`${option.label} (${option.key}) nom nom nom`) }} />
+
+                // Multi mode
+                 <ModalSelector
+                    data={data}
+                    selectStyle={{borderColor: "black"}}
+                    selectTextStyle={{color: "blue"}}
+                    multi={true}
+                    onChange={item => { console.log(item) }}
+                />
 
                 // Wrapper
                 <ModalSelector
@@ -142,8 +151,8 @@ Prop                            | Type                      | Optional | Default
 `labelExtractor`                | function                  | Yes | (data) => data.label                | extract the label from the data item
 `componentExtractor`            | function                  | Yes | (data) => data.component            | extract the component from the data item
 `visible`                       | bool                      | Yes | false                               | control open/close state of modal
-`closeOnChange`                 | bool                      | Yes | true                                | control if modal closes on select
-`initValue`                     | string                    | Yes | `Select me!`                        | text that is initially shown on the button
+`closeOnChange`                 | bool                      | Yes | In single mode `true` In multi mode `false` | control if modal closes on select
+`initValue`                     | string                    | Yes | `Select me!`                        | text that is initially shown on the button (available in single mode only!)
 `cancelText`                    | string                    | Yes | `cancel`                            | text of the cancel button
 `searchText`                    | string                    | Yes | `search`                            | text of the search placeholder
 `disabled`                      | bool                      | Yes | false                               | `true` disables opening of the modal
@@ -166,7 +175,7 @@ Prop                            | Type                      | Optional | Default
 `optionContainerStyle`          | object                    | Yes | {}                                  | style definitions for the option container element
 `cancelStyle`                   | object                    | Yes | {}                                  | style definitions for the cancel element
 `cancelTextStyle`               | object                    | Yes | {}                                  | style definitions for the cancel text element
-`initValueTextStyle`            | object                    | Yes | {}                                  | style definitions for the initValue text element
+`initValueTextStyle`            | object                    | Yes | {}                                  | style definitions for the initValue text element (available in single mode only!)
 `cancelContainerStyle`          | object                    | Yes | {}                                  | style definitions for the cancel container
 `searchStyle`                   | object                    | Yes | {}                                  | Style definitions for the search view element
 `searchTextStyle`               | object                    | Yes | {}                                  | Style definitions for the search text element
@@ -188,7 +197,9 @@ Prop                            | Type                      | Optional | Default
 `enableShortPress`              | bool                      | Yes | true                                | enables short press. This is regular touch behavior.
 `enableLongPress`               | bool                      | Yes | false                               | enables long press. When true, `onModalOpen` returns `{longPress: true}`
 `optionsTestIDPrefix`           | string                    | Yes | `'default'`                         | This prefixes each selectable option's testID prop if no testID keys are provided in `props.data` array objects. Default for each option's testID: 'default-\<optionLabel\>'
+`multi`                         | bool                      | Yes | false                                | enables multiple selection mode
+`text`                          | function                  | Yes | (count) => `'${count} item(s) selected'`| text of dropdown in multi mode
 
 ### Methods
 
-`getSelectedItem()`: get current selected item, updated by onChange event.
+`getSelectedItem()`: get current selected item(s) (returns object in single mode, returns array of object in multi mode), updated by onChange event.
