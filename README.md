@@ -169,9 +169,10 @@ Prop                            | Type                      | Optional | Default
 `overlayStyle`                  | object                    | Yes | { flex: 1, padding: '5%', justifyContent: 'center', backgroundColor: 'rgba(0,0,0,0.7)' } | style definitions for the overlay background element. RN <= 0.41 should override this with pixel value for padding.
 `sectionStyle`                  | object                    | Yes | {}                                  | style definitions for the section element
 `sectionTextStyle`              | object                    | Yes | {}                                  | style definitions for the select text element
-`selectedItemTextStyle`         | object                    | Yes | {}                                  | style definitions for the currently selected text element
 `optionStyle`                   | object                    | Yes | {}                                  | style definitions for the option element
 `optionTextStyle`               | object                    | Yes | {}                                  | style definitions for the option text element
+`optionSelectedStyle`           | object                    | Yes | { padding: 8, borderBottomWidth: 1, borderBottomColor: '#ccc' } | style definitions for the selected option elements
+`optionSelectedTextStyle`       | object                    | Yes | { textAlign: 'center', fontSize: FONT_SIZE, color: 'rgba(255, 0, 59, 0.9)' } | style definitions for the selected option text elements
 `optionContainerStyle`          | object                    | Yes | {}                                  | style definitions for the option container element
 `cancelStyle`                   | object                    | Yes | {}                                  | style definitions for the cancel element
 `cancelTextStyle`               | object                    | Yes | {}                                  | style definitions for the cancel text element
