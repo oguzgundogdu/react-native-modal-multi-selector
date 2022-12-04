@@ -92,7 +92,8 @@ const propTypes = {
     fullHeight: PropTypes.bool,
     frozenSearch: PropTypes.bool,
     modalTestId: PropTypes.any,
-    multi: PropTypes.bool
+    multi: PropTypes.bool,
+    text: PropTypes.string,
 };
 
 
@@ -160,7 +161,7 @@ const defaultProps = {
     fullHeight: false,
     frozenSearch: false,
     multi: false,
-    text: (count) => `${count} item(s) selected`
+    text: (count) => `${count} item(s) selected`,
 };
 
 export default class ModalSelector extends React.Component {
@@ -223,16 +224,14 @@ export default class ModalSelector extends React.Component {
     }
 
     onChangeMulti = (item, itemChecked) => {
-        let changedItemInternal = itemChecked === false ? (this.state.changedItem || []).concat(item) : (this.state.changedItem || []).filter(c => this.props.keyExtractor(c) != this.props.keyExtractor(item));
-        let selectedInternal = itemChecked === false ? (this.state.selected || []).concat(this.props.labelExtractor(item)) : (this.state.selected || []).filter(s => s != this.props.labelExtractor(item));
+        let changedItemInternal = itemChecked === false ? (this.state.changedItem || []).concat(item) : (this.state.changedItem || []).filter(c => this.props.keyExtractor(c) !== this.props.keyExtractor(item));
+        let selectedInternal = itemChecked === false ? (this.state.selected || []).concat(this.props.labelExtractor(item)) : (this.state.selected || []).filter(s => s !== this.props.labelExtractor(item));
 
-        this.setState(prevState =>{
-            return { 
-                ...prevState,
-                selected: selectedInternal, 
-                changedItem: changedItemInternal
-            };
-        });
+        this.setState(prevState => ({ 
+            ...prevState,
+            selected: selectedInternal, 
+            changedItem: changedItemInternal,
+        }));
 
         this.props.onChange(changedItemInternal);
 
@@ -389,7 +388,7 @@ export default class ModalSelector extends React.Component {
             searchTextStyle,
             fullHeight,
             frozenSearch,
-            multi
+            multi,
         } = this.props;
 
         const filteredData = this.onSearchFilterer(data);
