@@ -6,6 +6,7 @@ const PADDING = 8;
 const BORDER_RADIUS = 5;
 const FONT_SIZE = 16;
 const HIGHLIGHT_COLOR = 'rgba(0,118,255,0.9)';
+const HIGHLIGHT_SELECTED_COLOR = 'rgba(255, 0, 59, 0.9)'
 
 export default StyleSheet.create({
 
@@ -63,6 +64,18 @@ export default StyleSheet.create({
         textAlign: 'center',
         fontSize: FONT_SIZE,
         color: HIGHLIGHT_COLOR,
+    },
+
+    optionSelectedStyle: {
+        padding: PADDING,
+        borderBottomWidth: 1,
+        borderBottomColor: '#ccc',
+    },
+
+    optionSelectedTextStyle: {
+        textAlign: 'center',
+        fontSize: FONT_SIZE,
+        color: HIGHLIGHT_SELECTED_COLOR,
     },
 
     sectionStyle: {

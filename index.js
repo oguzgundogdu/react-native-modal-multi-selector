@@ -41,13 +41,14 @@ const propTypes = {
     selectTextStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
     optionStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
     optionTextStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
+    optionSelectedStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
+    optionSelectedTextStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
     optionContainerStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
     sectionStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
     childrenContainerStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
     touchableStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
     touchableActiveOpacity: PropTypes.number,
     sectionTextStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
-    selectedItemTextStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
     cancelContainerStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
     cancelStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
     cancelTextStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
@@ -118,13 +119,14 @@ const defaultProps = {
     selectTextStyle: {},
     optionStyle: {},
     optionTextStyle: {},
+    optionSelectedStyle: styles.optionSelectedStyle,
+    optionSelectedTextStyle: styles.optionSelectedTextStyle,
     optionContainerStyle: {},
     sectionStyle: {},
     childrenContainerStyle: {},
     touchableStyle: {},
     touchableActiveOpacity: 0.2,
     sectionTextStyle: {},
-    selectedItemTextStyle: {},
     cancelContainerStyle: {},
     cancelStyle: {},
     cancelTextStyle: {},
@@ -291,7 +293,7 @@ export default class ModalSelector extends React.Component {
         const isSelectedItem = this.props.multi === false ? optionLabel === this.state.selected : this.state.selected !== undefined && this.state.selected.includes(optionLabel);
 
         let component = optionComponent || (
-            <Text style={[styles.optionTextStyle, this.props.optionTextStyle, isSelectedItem && this.props.selectedItemTextStyle]} {...this.props.optionTextPassThruProps}>
+            <Text style={[styles.optionTextStyle, this.props.optionTextStyle, isSelectedItem && this.props.optionSelectedTextStyle]} {...this.props.optionTextPassThruProps}>
                 {optionLabel}
             </Text>
         );
@@ -308,7 +310,7 @@ export default class ModalSelector extends React.Component {
                 {...this.props.passThruProps}
                 disabled={option.disabled}
             >
-                <View style={[styles.optionStyle, this.props.optionStyle, isLastItem && { borderBottomWidth: 0 }]}>
+                <View style={[styles.optionStyle, this.props.optionStyle, isLastItem && { borderBottomWidth: 0 }, isSelectedItem && this.props.optionSelectedStyle]}>
                     {component}
                 </View>
             </TouchableOpacity>);
