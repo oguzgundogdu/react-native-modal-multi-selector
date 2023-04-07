@@ -3,7 +3,7 @@
   "scripts": {
     "start": "expo start",
     "postinstall": "npm run cp",
-    "cp": "cpx \"../*.js\" node_modules/react-native-modal-selector-searchable/ -u",
+    "cp": "cpx \"../*.js\" node_modules/react-native-modal-multi-selector/ -u",
     "nodemon": "nodemon nodemon.json",
     "android": "expo start --android",
     "ios": "expo start --ios",
@@ -15,14 +15,16 @@
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
-    "react-native-modal-selector-searchable": "*",
+    "react-native-modal-multi-selector": "*",
     "react-native-web": "~0.11.7"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0",
+    "@babel/core": "^7.12.0",
     "@deboxsoft/cpx": "^1.5.0",
-    "babel-preset-expo": "~8.0.0",
-    "nodemon": "^1.18.10"
+    "babel-preset-expo": "~8.3.0",
+    "nodemon": "^1.18.10",
+    "@types/react": "^16.9.0",
+    "@types/react-native": "^0.60.15"
   },
   "private": true
 }
