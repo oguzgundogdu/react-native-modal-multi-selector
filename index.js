@@ -176,7 +176,7 @@ export default class ModalSelector extends React.Component {
         this.state = {
             modalVisible: props.visible,
             selected: props.multi === true ? selectedItem?.map(item => item.label) : selectedItem?.label,
-            changedItem: props.multi === true ? selectedItem?.map(item => item.key): selectedItem?.key,
+            changedItem: props.multi === true ? selectedItem : selectedItem?.key,
             searchData: null,
         };
         this.initialModalHeight = null;
@@ -269,7 +269,6 @@ export default class ModalSelector extends React.Component {
         this.props.onModalOpen(params);
         this.setState({
             modalVisible: true,
-            changedItem: undefined,
             searchData: null,
         });
     }
